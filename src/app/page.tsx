@@ -8,7 +8,6 @@ import L from 'leaflet';
 import Map from './Map.jsx';
 import dynamic from 'next/dynamic';
 import LineGraph from './LineGraph.jsx';
-import NewMap from './NewMap';
 
 const inter = Inter({ subsets: ['latin'] })
 

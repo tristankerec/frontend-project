@@ -153,6 +153,11 @@ const VirtuosoTableComponents = {
   TableBody: React.forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
 };
 
+VirtuosoTableComponents.Scroller.displayName = 'Scroller';
+VirtuosoTableComponents.Table.displayName = 'Table';
+VirtuosoTableComponents.TableRow.displayName = 'TableRow';
+VirtuosoTableComponents.TableBody.displayName = 'TableBody';
+
 function fixedHeaderContent() {
   return (
     <TableRow>
@@ -387,6 +392,63 @@ function Filters({ selectedCategories, selectedFactors, onFactorChange, onCatego
 
 function YearTable({ selectedCategories, selectedFactors, handleCategoriesChange, handleFactorChange, page, setPage, filterText, setFilterText, handleClear, setScrollToRow, scrollToRow, tableRef, data, selectedYear, selectedRow, setSelectedRow, handleMarkerClick, handleTableClick, selectedRowIndex}) {
   
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    useEffect (() => {
+      if (scrollToRow !== -1) {
+        setSortBy('name');
+        setSortOrder('asc');
+        // console.log(rowsPerPage);
+        // console.log(scrollToRow);
+        const pageNumber = Math.floor((scrollToRow) / rowsPerPage);
+        //console.log(pageNumber)
+        if (pageNumber > 0) {
+          setPage(pageNumber);
+        } else {
+          setPage(0);
+        }
+        
+        // console.log(pageNumber)
+        // console.log(page);
+        var row = tableRef.current.querySelector(`#row-${scrollToRow}`);
+        // console.log(scrollToRow)
+        // console.log(row)
+        // console.log(page);
+        if (row) {
+          //const pageNumber = Math.floor(scrollToRow / rowsPerPage);
+          //setPage(2);
+          setTimeout(() => {
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+          //handleMarkerClick(scrollToRow);
+          //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
+          //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
+        }
+      }
+  },[scrollToRow]);
+
+  useEffect(() => {
+    var row = tableRef.current.querySelector(`#row-${scrollToRow}`);
+      // console.log(scrollToRow)
+      // console.log(row)
+      //console.log(page);
+      if (row) {
+        //const pageNumber = Math.floor(scrollToRow / rowsPerPage);
+        //setPage(2);
+        setTimeout(() => {
+          row.scrollIntoView({ behavior: 'smooth', block:'center'});
+        }, 100);
+        //handleMarkerClick(scrollToRow);
+        //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
+        //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
+      } 
+      setScrollToRow(-1);
+  },[page])
+
+  //console.log(rows);
+
+  const [sortBy, setSortBy] = useState(null);
+  const [sortOrder, setSortOrder] = useState('asc');
   if (selectedYear) {
     const filteredData = data.filter(item => item.Year == selectedYear);
     const rows = Array.from(filteredData, (obj,index) => {
@@ -395,67 +457,13 @@ function YearTable({ selectedCategories, selectedFactors, handleCategoriesChange
     //console.log(rows);
 
     // const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    
 
     const handleRowClick = (index) => {
       setSelectedRow(selectedRow === index ? null : index);
     };
 
-    useEffect (() => {
-        if (scrollToRow !== -1) {
-          setSortBy('name');
-          setSortOrder('asc');
-          // console.log(rowsPerPage);
-          // console.log(scrollToRow);
-          const pageNumber = Math.floor((scrollToRow) / rowsPerPage);
-          //console.log(pageNumber)
-          if (pageNumber > 0) {
-            setPage(pageNumber);
-          } else {
-            setPage(0);
-          }
-          
-          // console.log(pageNumber)
-          // console.log(page);
-          var row = tableRef.current.querySelector(`#row-${scrollToRow}`);
-          // console.log(scrollToRow)
-          // console.log(row)
-          // console.log(page);
-          if (row) {
-            //const pageNumber = Math.floor(scrollToRow / rowsPerPage);
-            //setPage(2);
-            setTimeout(() => {
-              row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-            //handleMarkerClick(scrollToRow);
-            //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
-            //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
-          }
-        }
-    },[scrollToRow]);
-
-    useEffect(() => {
-      var row = tableRef.current.querySelector(`#row-${scrollToRow}`);
-        // console.log(scrollToRow)
-        // console.log(row)
-        //console.log(page);
-        if (row) {
-          //const pageNumber = Math.floor(scrollToRow / rowsPerPage);
-          //setPage(2);
-          setTimeout(() => {
-            row.scrollIntoView({ behavior: 'smooth', block:'center'});
-          }, 100);
-          //handleMarkerClick(scrollToRow);
-          //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
-          //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
-        } 
-        setScrollToRow(-1);
-    },[page])
-
-    //console.log(rows);
-
-    const [sortBy, setSortBy] = useState(null);
-    const [sortOrder, setSortOrder] = useState('asc');
+    
 
     const handleSortRequest = (column) => {
       if (sortBy === column) {
