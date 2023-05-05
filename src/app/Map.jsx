@@ -614,7 +614,7 @@ function YearTable({ selectedCategories, selectedFactors, handleCategoriesChange
         <div style={{zIndex: '1000', position:'relative', paddingLeft: '1rem' }}>
           <Filters selectedCategories={selectedCategories} selectedFactors={selectedFactors} onFactorChange={handleFactorChange} onCategoryChange={handleCategoriesChange} onClear={handleClear} filterText={filterText} newdata={newdata} />
         </div>
-      <TableContainer component={Paper} sx={{position: 'relative', height: '700px', overflow: 'auto'}}>
+      <TableContainer component={Paper} sx={{position: 'relative', height: '70vh', overflow: 'auto'}}>
         <Table ref={tableRef} aria-label="collapsible table">
           <TableHead sx={{ zIndex:'999', position: 'sticky', top: 0, background: 'white' }}>
             <TableRow>
