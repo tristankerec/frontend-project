@@ -11,7 +11,6 @@ import L from 'leaflet';
 import DataTable from 'react-data-table-component';
 import LineGraph from './LineGraph.jsx';
 import MultiSelect from './MultiSelect.jsx';
-import NewMap from './NewMap';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet/dist/images/marker-shadow.png';
@@ -410,6 +409,7 @@ function YearTable({ selectedCategories, selectedFactors, handleCategoriesChange
         
         // console.log(pageNumber)
         // console.log(page);
+        if (tableRef.current) {
         var row = tableRef.current.querySelector(`#row-${scrollToRow}`);
         // console.log(scrollToRow)
         // console.log(row)
@@ -425,9 +425,12 @@ function YearTable({ selectedCategories, selectedFactors, handleCategoriesChange
           //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
         }
       }
+      }
   },[scrollToRow]);
 
   useEffect(() => {
+
+    if (tableRef.current) {
     var row = tableRef.current.querySelector(`#row-${scrollToRow}`);
       // console.log(scrollToRow)
       // console.log(row)
@@ -443,6 +446,7 @@ function YearTable({ selectedCategories, selectedFactors, handleCategoriesChange
         //setSelectedRow(selectedRow === scrollToRow ? null : scrollToRow);
       } 
       setScrollToRow(-1);
+    }
   },[page])
 
   //console.log(rows);
@@ -1145,6 +1149,8 @@ export default function Map() {
     setSelectedCategories(selectedOptions);
     if (selectedOptions.length == 0) {
       //setPage(0);
+    } else {
+      setPage(0);
     }
   };
   
@@ -1152,6 +1158,8 @@ export default function Map() {
     setSelectedFactors(selectedOptions);
     if (selectedOptions.length == 0) {
       //setPage(0);
+    } else {
+      setPage(0);
     }
   };
 
