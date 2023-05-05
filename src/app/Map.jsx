@@ -11,7 +11,6 @@ import L from 'leaflet';
 import DataTable from 'react-data-table-component';
 import LineGraph from './LineGraph.jsx';
 import MultiSelect from './MultiSelect.jsx';
-import NewMap from './NewMap';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet/dist/images/marker-shadow.png';
