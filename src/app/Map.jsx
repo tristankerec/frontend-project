@@ -1149,6 +1149,8 @@ export default function Map() {
     setSelectedCategories(selectedOptions);
     if (selectedOptions.length == 0) {
       //setPage(0);
+    } else {
+      setPage(0);
     }
   };
   
@@ -1156,6 +1158,8 @@ export default function Map() {
     setSelectedFactors(selectedOptions);
     if (selectedOptions.length == 0) {
       //setPage(0);
+    } else {
+      setPage(0);
     }
   };
 
